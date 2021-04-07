@@ -9,6 +9,10 @@ public class SensorCommand {
         this.objectId = objectId;
     }
 
+    public void report() {
+        System.out.println("Pretent we're sending command " + this);
+    }
+
     @Override
     public String toString() {
         return "SensorCommand{" +
@@ -16,4 +20,6 @@ public class SensorCommand {
                 ", objectId='" + objectId + '\'' +
                 '}';
     }
+
+
 }
