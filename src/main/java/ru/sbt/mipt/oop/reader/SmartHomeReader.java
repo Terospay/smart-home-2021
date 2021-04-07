@@ -1,4 +1,6 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.reader;
+
+import ru.sbt.mipt.oop.SmartHome;
 
 import java.io.IOException;
 

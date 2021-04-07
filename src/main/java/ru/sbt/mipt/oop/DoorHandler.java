@@ -1,5 +1,8 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.base_device.Door;
+import ru.sbt.mipt.oop.base_device.Light;
+
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
 
 public class DoorHandler implements DeviceHandler {
@@ -35,11 +38,11 @@ public class DoorHandler implements DeviceHandler {
         // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
         // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
         if (room.getName().equals("hall")) {
-            hallDoorClosed();
+            hallDoorClosedAction();
         }
     }
 
-    private void hallDoorClosed() {
+    private void hallDoorClosedAction() {
         for (Room homeRoom : smartHome.getRooms()) {
             for (Light light : homeRoom.getLights()) {
                 light.setOn(false);

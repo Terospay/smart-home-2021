@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.reader.JsonSmartHomeReader;
+
 import java.io.IOException;
 
 public class Application {
@@ -8,11 +10,11 @@ public class Application {
         // считываем состояние дома из файла
         SmartHome smartHome = new JsonSmartHomeReader().read("smart-home-1.js");
         // начинаем цикл обработки событий
-        SensorEvent event = EventGenerator.getNextSensorEvent();
+        SensorEvent event = RandomEventGenerator.getNextSensorEvent();
         while (event != null) {
             EventHandler eventHandler = new EventHandler(smartHome);
             eventHandler.handleEvent(event);
-            event = EventGenerator.getNextSensorEvent();
+            event = RandomEventGenerator.getNextSensorEvent();
         }
     }
 

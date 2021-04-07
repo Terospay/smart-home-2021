@@ -12,7 +12,7 @@ public class EventHandler {
 
     public void handleEvent(SensorEvent event) {
         System.out.println("Got event: " + event);
-        DeviceHandler deviceHandler = new LightHandler(null);
+        DeviceHandler deviceHandler = null;
         if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
             // событие от источника света
             deviceHandler = new LightHandler(smartHome);
@@ -21,6 +21,7 @@ public class EventHandler {
             deviceHandler = new DoorHandler(smartHome);
         }
         deviceHandler.handle(event);
+
 
     }
 }

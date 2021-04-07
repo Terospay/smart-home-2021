@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.base_device.Light;
+
 import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
 
 public class LightHandler implements DeviceHandler {
