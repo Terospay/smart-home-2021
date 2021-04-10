@@ -1,5 +1,5 @@
 package ru.sbt.mipt.oop;
 
-public interface DeviceHandler {
+public interface Handler {
     void handle(SensorEvent event);
 }

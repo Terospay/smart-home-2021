@@ -1,11 +1,14 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.home_component;
 
-import ru.sbt.mipt.oop.base_device.Door;
-import ru.sbt.mipt.oop.base_device.Light;
+import ru.sbt.mipt.oop.Action;
+import ru.sbt.mipt.oop.Actionable;
+import ru.sbt.mipt.oop.home_component.Door;
+import ru.sbt.mipt.oop.home_component.HomeComponent;
+import ru.sbt.mipt.oop.home_component.Light;
 
 import java.util.Collection;
 
-public class Room {
+public class Room implements Actionable, HomeComponent {
     private final Collection<Light> lights;
     private final Collection<Door> doors;
     private final String name;
@@ -26,5 +29,12 @@ public class Room {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public void execute(Action action) {
+        action.act(this);
+        lights.forEach(light -> light.execute(action));
+        doors.forEach(door -> door.execute(action));
     }
 }

@@ -1,11 +1,11 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.base_device.Door;
-import ru.sbt.mipt.oop.base_device.Light;
+import ru.sbt.mipt.oop.home_component.Door;
+import ru.sbt.mipt.oop.home_component.SmartHome;
 
-import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
+import static ru.sbt.mipt.oop.SensorEventType.*;
 
-public class DoorHandler implements DeviceHandler {
+public class DoorHandler implements Handler {
     private final SmartHome smartHome;
 
     public DoorHandler(SmartHome smartHome) {
@@ -14,41 +14,29 @@ public class DoorHandler implements DeviceHandler {
 
     @Override
     public void handle(SensorEvent event) {
-        for (Room room : smartHome.getRooms()) {
-            for (Door door : room.getDoors()) {
-                if (door.getId().equals(event.getObjectId())) {
+        Action action = (object) -> {
+            if (object instanceof Door) {
+                Door door = (Door) object;
+                if (event.getObjectId().equals(door.getId())) {
                     if (event.getType() == DOOR_OPEN) {
-                        doorOpen(room, door);
-                    } else {
-                        doorClose(room, door);
+                        doorOpen(door);
+                    } else if (event.getType() == DOOR_CLOSED) {
+                        doorClose(door);
+                        new HallDoorHandler(smartHome).handle(event);
                     }
                 }
             }
-        }
+        };
+        smartHome.execute(action);
     }
 
-    private void doorOpen(Room room, Door door) {
+    private void doorOpen(Door door) {
         door.setOpen(true);
-        System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
+        System.out.println("Door " + door.getId() + " was opened.");
     }
 
-    private void doorClose(Room room, Door door) {
+    private void doorClose(Door door) {
         door.setOpen(false);
-        System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
-        // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
-        // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
-        if (room.getName().equals("hall")) {
-            hallDoorClosedAction();
-        }
-    }
-
-    private void hallDoorClosedAction() {
-        for (Room homeRoom : smartHome.getRooms()) {
-            for (Light light : homeRoom.getLights()) {
-                light.setOn(false);
-                SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                command.report();
-            }
-        }
+        System.out.println("Door " + door.getId() + " was closed.");
     }
 }
