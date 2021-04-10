@@ -1,6 +1,10 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.event;
 
-public class RandomSensorEventGenerator implements SensorEventGenerator{
+import ru.sbt.mipt.oop.event.SensorEvent;
+import ru.sbt.mipt.oop.event.SensorEventGenerator;
+import ru.sbt.mipt.oop.event.SensorEventType;
+
+public class RandomSensorEventGenerator implements SensorEventGenerator {
 
     public SensorEvent getNextSensorEvent() {
         // pretend like we're getting the events from physical world, but here we're going to just generate some random events

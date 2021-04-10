@@ -1,5 +1,8 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.handler;
 
+import ru.sbt.mipt.oop.event.SensorEvent;
+import ru.sbt.mipt.oop.event.SensorEventGenerator;
+import ru.sbt.mipt.oop.handler.EventHandler;
 import ru.sbt.mipt.oop.home_component.SmartHome;
 
 public class SequentialEventHandler {

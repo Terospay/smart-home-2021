@@ -1,5 +1,8 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.event.RandomSensorEventGenerator;
+import ru.sbt.mipt.oop.event.SensorEventGenerator;
+import ru.sbt.mipt.oop.handler.SequentialEventHandler;
 import ru.sbt.mipt.oop.home_component.SmartHome;
 import ru.sbt.mipt.oop.reader.JsonSmartHomeReader;
 

@@ -1,13 +1,14 @@
 import org.junit.Before;
 import org.junit.Test;
+import ru.sbt.mipt.oop.event.SensorEvent;
+import ru.sbt.mipt.oop.event.SensorEventType;
+import ru.sbt.mipt.oop.handler.EventHandler;
 import ru.sbt.mipt.oop.home_component.Light;
 import ru.sbt.mipt.oop.home_component.Room;
 import ru.sbt.mipt.oop.home_component.SmartHome;
-import ru.sbt.mipt.oop.*;
 
 
 import ru.sbt.mipt.oop.home_component.Door;
-import ru.sbt.mipt.oop.reader.JsonSmartHomeReader;
 
 import java.io.IOException;
 import java.util.ArrayList;

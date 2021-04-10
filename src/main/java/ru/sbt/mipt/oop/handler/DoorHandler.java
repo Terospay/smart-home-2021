@@ -1,9 +1,11 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.handler;
 
+import ru.sbt.mipt.oop.Action;
+import ru.sbt.mipt.oop.event.SensorEvent;
 import ru.sbt.mipt.oop.home_component.Door;
 import ru.sbt.mipt.oop.home_component.SmartHome;
 
-import static ru.sbt.mipt.oop.SensorEventType.*;
+import static ru.sbt.mipt.oop.event.SensorEventType.*;
 
 public class DoorHandler implements Handler {
     private final SmartHome smartHome;
