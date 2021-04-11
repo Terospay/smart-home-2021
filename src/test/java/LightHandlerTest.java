@@ -1,7 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 import ru.sbt.mipt.oop.event.SensorEvent;
-import ru.sbt.mipt.oop.event.SensorEventType;
+import ru.sbt.mipt.oop.event.EventType;
 import ru.sbt.mipt.oop.handler.EventHandler;
 import ru.sbt.mipt.oop.home_component.Light;
 import ru.sbt.mipt.oop.home_component.*;
@@ -29,7 +29,7 @@ public class LightHandlerTest {
         Room room = smartHome.getRooms().iterator().next();
         Light light = room.getLights().iterator().next();
 
-        SensorEvent event = new SensorEvent(SensorEventType.LIGHT_OFF, "1");
+        SensorEvent event = new SensorEvent(EventType.LIGHT_OFF, "1");
         new EventHandler(smartHome).handle(event);
         boolean expectedState = false;
         boolean actualState = light.isOn();
@@ -41,7 +41,7 @@ public class LightHandlerTest {
         Room room = smartHome.getRooms().iterator().next();
         Light light = room.getLights().iterator().next();
 
-        SensorEvent event = new SensorEvent(SensorEventType.LIGHT_OFF, "1");
+        SensorEvent event = new SensorEvent(EventType.LIGHT_OFF, "1");
         new EventHandler(smartHome).handle(event);
         new EventHandler(smartHome).handle(event);
         boolean expectedState = false;

@@ -1,17 +1,20 @@
 package ru.sbt.mipt.oop.event;
 
-import ru.sbt.mipt.oop.event.SensorEventType;
-
-public class SensorEvent{
-    private final SensorEventType type;
+public class SensorEvent implements Event{
+    private final EventType type;
     private final String objectId;
 
-    public SensorEvent(SensorEventType type, String objectId) {
+    public SensorEvent(EventType type, String objectId) {
         this.type = type;
         this.objectId = objectId;
     }
 
-    public SensorEventType getType() {
+    public SensorEvent(EventType type) {
+        this.type = type;
+        this.objectId = null;
+    }
+
+    public EventType getType() {
         return type;
     }
 

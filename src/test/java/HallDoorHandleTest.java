@@ -2,7 +2,7 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.sbt.mipt.oop.handler.EventHandler;
 import ru.sbt.mipt.oop.event.SensorEvent;
-import ru.sbt.mipt.oop.event.SensorEventType;
+import ru.sbt.mipt.oop.event.EventType;
 import ru.sbt.mipt.oop.home_component.Door;
 import ru.sbt.mipt.oop.home_component.Light;
 import ru.sbt.mipt.oop.home_component.Room;
@@ -32,7 +32,7 @@ public class HallDoorHandleTest {
         Light light1= room.getLights().iterator().next();
         Light light2= room.getLights().iterator().next();
 
-        SensorEvent event = new SensorEvent(SensorEventType.DOOR_CLOSED, "3");
+        SensorEvent event = new SensorEvent(EventType.DOOR_CLOSED, "3");
         new EventHandler(smartHome).handle(event);
         boolean expectedState = false;
         boolean actualState1 = light1.isOn();

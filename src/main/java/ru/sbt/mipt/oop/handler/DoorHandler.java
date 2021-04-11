@@ -1,11 +1,12 @@
 package ru.sbt.mipt.oop.handler;
 
 import ru.sbt.mipt.oop.Action;
+import ru.sbt.mipt.oop.event.Event;
 import ru.sbt.mipt.oop.event.SensorEvent;
 import ru.sbt.mipt.oop.home_component.Door;
 import ru.sbt.mipt.oop.home_component.SmartHome;
 
-import static ru.sbt.mipt.oop.event.SensorEventType.*;
+import static ru.sbt.mipt.oop.event.EventType.*;
 
 public class DoorHandler implements Handler {
     private final SmartHome smartHome;
@@ -15,16 +16,17 @@ public class DoorHandler implements Handler {
     }
 
     @Override
-    public void handle(SensorEvent event) {
+    public void handle(Event event) {
         Action action = (object) -> {
             if (object instanceof Door) {
+                SensorEvent sensorEvent = (SensorEvent) event;
                 Door door = (Door) object;
-                if (event.getObjectId().equals(door.getId())) {
-                    if (event.getType() == DOOR_OPEN) {
+                if (sensorEvent.getObjectId().equals(door.getId())) {
+                    if (sensorEvent.getType() == DOOR_OPEN) {
                         doorOpen(door);
-                    } else if (event.getType() == DOOR_CLOSED) {
+                    } else if (sensorEvent.getType() == DOOR_CLOSED) {
                         doorClose(door);
-                        new HallDoorHandler(smartHome).handle(event);
+                        new HallDoorHandler(smartHome).handle(sensorEvent);
                     }
                 }
             }

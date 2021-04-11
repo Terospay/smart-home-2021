@@ -1,11 +1,12 @@
 package ru.sbt.mipt.oop.handler;
 
 import ru.sbt.mipt.oop.Action;
+import ru.sbt.mipt.oop.event.Event;
 import ru.sbt.mipt.oop.event.SensorEvent;
 import ru.sbt.mipt.oop.home_component.Light;
 import ru.sbt.mipt.oop.home_component.SmartHome;
 
-import static ru.sbt.mipt.oop.event.SensorEventType.*;
+import static ru.sbt.mipt.oop.event.EventType.*;
 
 public class LightHandler implements Handler {
     private final SmartHome smartHome;
@@ -15,14 +16,15 @@ public class LightHandler implements Handler {
     }
 
     @Override
-    public void handle(SensorEvent event) {
+    public void handle(Event event) {
         Action action = (object) -> {
             if (object instanceof Light) {
+                SensorEvent sensorEvent = (SensorEvent) event;
                 Light light = (Light) object;
-                if (event.getObjectId().equals(light.getId())) {
-                    if (event.getType() == LIGHT_ON) {
+                if (sensorEvent.getObjectId().equals(light.getId())) {
+                    if (sensorEvent.getType() == LIGHT_ON) {
                         lightOn(light);
-                    } else if (event.getType() == LIGHT_OFF) {
+                    } else if (sensorEvent.getType() == LIGHT_OFF) {
                         lightOff(light);
                     }
                 }
