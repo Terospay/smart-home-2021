@@ -2,7 +2,7 @@ package ru.sbt.mipt.oop;
 
 import ru.sbt.mipt.oop.base_device.Light;
 
-import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
+import static ru.sbt.mipt.oop.SensorEventType.*;
 
 public class LightHandler implements DeviceHandler {
     private final SmartHome smartHome;
@@ -13,13 +13,15 @@ public class LightHandler implements DeviceHandler {
 
     @Override
     public void handle(SensorEvent event) {
-        for (Room room : smartHome.getRooms()) {
-            for (Light light : room.getLights()) {
-                if (light.getId().equals(event.getObjectId())) {
-                    if (event.getType() == LIGHT_ON) {
-                        lightOn(light, room);
-                    } else {
-                        lightOff(light, room);
+        if(event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
+            for (Room room : smartHome.getRooms()) {
+                for (Light light : room.getLights()) {
+                    if (light.getId().equals(event.getObjectId())) {
+                        if (event.getType() == LIGHT_ON) {
+                            lightOn(light, room);
+                        } else {
+                            lightOff(light, room);
+                        }
                     }
                 }
             }

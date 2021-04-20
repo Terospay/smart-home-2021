@@ -6,16 +6,13 @@ import java.io.IOException;
 
 public class Application {
 
-    public static void main(String... args) throws IOException {
+    public static void main(String... args) {
         // считываем состояние дома из файла
         SmartHome smartHome = new JsonSmartHomeReader().read("smart-home-1.js");
         // начинаем цикл обработки событий
-        SensorEvent event = RandomEventGenerator.getNextSensorEvent();
-        while (event != null) {
-            EventHandler eventHandler = new EventHandler(smartHome);
-            eventHandler.handleEvent(event);
-            event = RandomEventGenerator.getNextSensorEvent();
-        }
+        SensorEventGenerator sensorEventGenerator = new RandomSensorEventGenerator();
+        SequentialEventHandler sequentialEventHandler = new SequentialEventHandler(smartHome, sensorEventGenerator);
+        sequentialEventHandler.start();
     }
 
 }
