@@ -4,7 +4,7 @@ import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.Actionable;
 import ru.sbt.mipt.oop.home_component.HomeComponent;
 
-public class Alarm implements HomeComponent, Actionable, AlarmState {
+public class Alarm implements HomeComponent, Actionable {
     private String code = "admin";
     private AlarmState state = new InactiveAlarmState(this);
 
@@ -19,26 +19,23 @@ public class Alarm implements HomeComponent, Actionable, AlarmState {
         action.act(this);
     }
 
-    @Override
     public void activate(String code) {
         state.activate(code);
     }
 
-    @Override
     public void deactivate(String code) {
         state.deactivate(code);
     }
 
-    @Override
     public void alert() {
         state.alert();
     }
 
-    public void setCode(String code) {
+    protected void setCode(String code) {
         this.code = code;
     }
 
-    public  void setState(AlarmState state) {
+    protected void setState(AlarmState state) {
         this.state = state;
     }
 
@@ -46,7 +43,7 @@ public class Alarm implements HomeComponent, Actionable, AlarmState {
         return code.equals(this.code);
     }
 
-    public AlarmState getState() {
-        return state;
+    public boolean isInactive() {
+        return state.getClass() == InactiveAlarmState.class;
     }
 }

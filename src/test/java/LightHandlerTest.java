@@ -15,37 +15,32 @@ import java.util.Arrays;
 
 public class LightHandlerTest {
     SmartHome smartHome;
+    Light testingLight;
 
     @Before
     public void init() {
-        Light light = new Light("1", true);
+        testingLight = new Light("1", true);
         Door door = new Door("2", true);
-        Room room = new Room(new ArrayList<Light>(Arrays.asList(light)), new ArrayList<Door>(Arrays.asList(door)), "hall");
+        Room room = new Room(new ArrayList<Light>(Arrays.asList(testingLight)), new ArrayList<Door>(Arrays.asList(door)), "hall");
         smartHome = new SmartHome(new ArrayList<Room>(Arrays.asList(room)));
     }
 
     @Test
     public void TurnOffOneLight() throws IOException {
-        Room room = smartHome.getRooms().iterator().next();
-        Light light = room.getLights().iterator().next();
-
         SensorEvent event = new SensorEvent(EventType.LIGHT_OFF, "1");
         new EventHandler(smartHome).handle(event);
         boolean expectedState = false;
-        boolean actualState = light.isOn();
+        boolean actualState = testingLight.isOn();
         assertEquals(expectedState, actualState);
     }
 
     @Test
     public void handleSameCommand() throws IOException {
-        Room room = smartHome.getRooms().iterator().next();
-        Light light = room.getLights().iterator().next();
-
         SensorEvent event = new SensorEvent(EventType.LIGHT_OFF, "1");
         new EventHandler(smartHome).handle(event);
         new EventHandler(smartHome).handle(event);
         boolean expectedState = false;
-        boolean actualState = light.isOn();
+        boolean actualState = testingLight.isOn();
         assertEquals(expectedState, actualState);
     }
 }

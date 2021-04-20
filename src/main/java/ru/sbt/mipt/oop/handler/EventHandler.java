@@ -14,23 +14,14 @@ public class EventHandler implements Handler {
 
 
     public void handle(Event event) {
-//        System.out.println("Got event: " + event);
-//        DeviceHandler deviceHandler = null;
-//        if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
-//            // событие от источника света
-//            deviceHandler = new LightHandler(smartHome);
-//        } else if (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED) {
-//            // событие от двери
-//            deviceHandler = new DoorHandler(smartHome);
-//        }
-//        deviceHandler.handle(event);
+        System.out.println("Got event: " + event);
         if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
             LightHandler lightHandler = new LightHandler(smartHome);
-            new EventHandlerWithAlarmSafety(smartHome).handle(lightHandler, event);
+            new EventHandlerWithAlarmSafety(smartHome, lightHandler).handle(event);
         }
         if (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED) {
             DoorHandler doorHandler = new DoorHandler(smartHome);
-            new EventHandlerWithAlarmSafety(smartHome).handle(doorHandler, event);
+            new EventHandlerWithAlarmSafety(smartHome, doorHandler).handle(event);
         }
         if (event.getType() == ALARM_ACTIVATE || event.getType() == ALARM_DEACTIVATE) {
             new AlarmHandler(smartHome).handle(event);

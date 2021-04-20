@@ -2,22 +2,21 @@ package ru.sbt.mipt.oop.handler;
 
 import ru.sbt.mipt.oop.event.Event;
 import ru.sbt.mipt.oop.home_component.SmartHome;
-import ru.sbt.mipt.oop.home_component.alarm.ActiveAlarmState;
 import ru.sbt.mipt.oop.home_component.alarm.Alarm;
-import ru.sbt.mipt.oop.home_component.alarm.AlarmState;
-import ru.sbt.mipt.oop.home_component.alarm.AlertAlarmState;
 
-public class EventHandlerWithAlarmSafety {
+public class EventHandlerWithAlarmSafety implements Handler {
     private final SmartHome smartHome;
+    private final Handler handler;
 
-    public EventHandlerWithAlarmSafety(SmartHome smartHome) {
+    public EventHandlerWithAlarmSafety(SmartHome smartHome, Handler handler) {
         this.smartHome = smartHome;
+        this.handler = handler;
     }
 
-    public void handle(Handler handler, Event event) {
+
+    public void handle(Event event) {
         Alarm alarm = smartHome.getAlarm();
-        AlarmState alarmState = alarm.getState();
-        if (alarmState.getClass() == ActiveAlarmState.class || alarmState.getClass() == AlertAlarmState.class) {
+        if (alarm != null && !alarm.isInactive()) {
             alarm.alert();
         } else {
             handler.handle(event);

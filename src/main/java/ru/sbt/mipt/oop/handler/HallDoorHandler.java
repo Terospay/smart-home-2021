@@ -21,13 +21,20 @@ public class HallDoorHandler implements Handler {
             if (object instanceof Room) {
                 Room room = (Room) object;
                 if (room.getName().equals("hall")) {
-                    for (Light light : room.getLights()) {
-                        SensorEvent sensorEvent = new SensorEvent(EventType.LIGHT_OFF, light.getId());
-                        new LightHandler(smartHome).handle(sensorEvent);
-                    }
+                    Action hall_action = getHallAction();
+                    smartHome.execute(hall_action);
                 }
             }
         };
         smartHome.execute(action);
+    }
+
+    private Action getHallAction() {
+        return (inner_obj) -> {
+            if (inner_obj instanceof Light) {
+                Light light = (Light) inner_obj;
+                light.setOn(false);
+            }
+        };
     }
 }
