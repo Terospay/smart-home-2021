@@ -21,10 +21,6 @@ public class SmartHome implements Actionable, HomeComponent {
         rooms.add(room);
     }
 
-    public Collection<Room> getRooms() {
-        return rooms;
-    }
-
     @Override
     public void execute(Action action) {
         action.act(this);

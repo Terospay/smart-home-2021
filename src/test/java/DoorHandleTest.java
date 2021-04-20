@@ -19,38 +19,35 @@ import static org.junit.Assert.assertEquals;
 public class DoorHandleTest {
 
     SmartHome smartHome;
+    Door testingDoor;
 
     @Before
     public void init() {
         Light light = new Light("1", true);
-        Door door = new Door("2", true);
-        Room room = new Room(new ArrayList<Light>(Arrays.asList(light)), new ArrayList<Door>(Arrays.asList(door)), "hall");
+        testingDoor = new Door("2", true);
+        Room room = new Room(new ArrayList<Light>(Arrays.asList(light)), new ArrayList<Door>(Arrays.asList(testingDoor)), "hall");
         smartHome = new SmartHome(new ArrayList<Room>(Arrays.asList(room)));
     }
 
     @Test
     public void simpleDoorClose() throws IOException {
-        Room room = smartHome.getRooms().iterator().next();
-        Door door = room.getDoors().iterator().next();
 
         SensorEvent event = new SensorEvent(SensorEventType.DOOR_CLOSED, "2");
         new EventHandler(smartHome).handle(event);
         boolean expectedState = false;
-        boolean actualState =door.isOpen();
+        boolean actualState = testingDoor.isOpen();
         assertEquals(expectedState, actualState);
 
     }
 
     @Test
     public void handleSameCommand() throws IOException {
-        Room room = smartHome.getRooms().iterator().next();
-        Door door = room.getDoors().iterator().next();
 
         SensorEvent event = new SensorEvent(SensorEventType.DOOR_CLOSED, "2");
         new EventHandler(smartHome).handle(event);
         new EventHandler(smartHome).handle(event);
         boolean expectedState = false;
-        boolean actualState =door.isOpen();
+        boolean actualState = testingDoor.isOpen();
         assertEquals(expectedState, actualState);
     }
 }
