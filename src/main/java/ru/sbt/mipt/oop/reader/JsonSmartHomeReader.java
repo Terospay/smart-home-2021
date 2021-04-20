@@ -10,10 +10,14 @@ import java.nio.file.Paths;
 public class JsonSmartHomeReader implements SmartHomeReader {
 
     @Override
-    public SmartHome read(String filename) throws IOException {
+    public SmartHome read(String filename) {
         Gson gson = new Gson();
-        String json = new String(Files.readAllBytes(Paths.get(filename)));
-        SmartHome smartHome = gson.fromJson(json, SmartHome.class);
-        return smartHome;
+        String json = null;
+        try {
+            json = new String(Files.readAllBytes(Paths.get(filename)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return gson.fromJson(json, SmartHome.class);
     }
 }
