@@ -6,7 +6,8 @@ import ru.sbt.mipt.oop.event.SensorEvent;
 import ru.sbt.mipt.oop.home_component.Light;
 import ru.sbt.mipt.oop.home_component.SmartHome;
 
-import static ru.sbt.mipt.oop.event.EventType.*;
+import static ru.sbt.mipt.oop.event.EventType.LIGHT_OFF;
+import static ru.sbt.mipt.oop.event.EventType.LIGHT_ON;
 
 public class LightHandler implements Handler {
     private final SmartHome smartHome;
@@ -17,20 +18,22 @@ public class LightHandler implements Handler {
 
     @Override
     public void handle(Event event) {
-        Action action = (object) -> {
-            if (object instanceof Light) {
-                SensorEvent sensorEvent = (SensorEvent) event;
-                Light light = (Light) object;
-                if (sensorEvent.getObjectId().equals(light.getId())) {
-                    if (sensorEvent.getType() == LIGHT_ON) {
-                        lightOn(light);
-                    } else if (sensorEvent.getType() == LIGHT_OFF) {
-                        lightOff(light);
+        if(event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
+            Action action = (object) -> {
+                if (object instanceof Light) {
+                    SensorEvent sensorEvent = (SensorEvent) event;
+                    Light light = (Light) object;
+                    if (sensorEvent.getObjectId().equals(light.getId())) {
+                        if (sensorEvent.getType() == LIGHT_ON) {
+                            lightOn(light);
+                        } else if (sensorEvent.getType() == LIGHT_OFF) {
+                            lightOff(light);
+                        }
                     }
                 }
-            }
-        };
-        smartHome.execute(action);
+            };
+            smartHome.execute(action);
+        }
     }
 
     private void lightOn(Light light) {

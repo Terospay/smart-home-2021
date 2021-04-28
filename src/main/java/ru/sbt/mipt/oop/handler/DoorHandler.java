@@ -17,21 +17,23 @@ public class DoorHandler implements Handler {
 
     @Override
     public void handle(Event event) {
-        Action action = (object) -> {
-            if (object instanceof Door) {
-                SensorEvent sensorEvent = (SensorEvent) event;
-                Door door = (Door) object;
-                if (sensorEvent.getObjectId().equals(door.getId())) {
-                    if (sensorEvent.getType() == DOOR_OPEN) {
-                        doorOpen(door);
-                    } else if (sensorEvent.getType() == DOOR_CLOSED) {
-                        doorClose(door);
-                        new HallDoorHandler(smartHome).handle(sensorEvent);
+        if(event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED) {
+            Action action = (object) -> {
+                if (object instanceof Door) {
+                    SensorEvent sensorEvent = (SensorEvent) event;
+                    Door door = (Door) object;
+                    if (sensorEvent.getObjectId().equals(door.getId())) {
+                        if (sensorEvent.getType() == DOOR_OPEN) {
+                            doorOpen(door);
+                        } else if (sensorEvent.getType() == DOOR_CLOSED) {
+                            doorClose(door);
+                            new HallDoorHandler(smartHome).handle(sensorEvent);
+                        }
                     }
                 }
-            }
-        };
-        smartHome.execute(action);
+            };
+            smartHome.execute(action);
+        }
     }
 
     private void doorOpen(Door door) {
