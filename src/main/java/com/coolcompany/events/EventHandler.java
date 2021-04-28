@@ -1,4 +1,4 @@
-package com.coolcompany.smarthome.events;
+package com.coolcompany.events;
 
 public interface EventHandler {
 

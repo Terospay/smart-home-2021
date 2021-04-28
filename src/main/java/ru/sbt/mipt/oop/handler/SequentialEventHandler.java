@@ -2,7 +2,6 @@ package ru.sbt.mipt.oop.handler;
 
 import ru.sbt.mipt.oop.event.SensorEvent;
 import ru.sbt.mipt.oop.event.SensorEventGenerator;
-import ru.sbt.mipt.oop.handler.EventHandler;
 import ru.sbt.mipt.oop.home_component.SmartHome;
 
 public class SequentialEventHandler {
@@ -26,7 +25,7 @@ public class SequentialEventHandler {
     public void start() {
         SensorEvent event = sensorEventGenerator.getNextSensorEvent();
         while (event != null) {
-            new EventHandler(smartHome).handle(event);
+            new SensorEventHandler(smartHome).handle(event);
             event = sensorEventGenerator.getNextSensorEvent();
         }
     }

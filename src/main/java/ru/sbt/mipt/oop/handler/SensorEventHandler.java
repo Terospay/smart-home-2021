@@ -5,10 +5,10 @@ import ru.sbt.mipt.oop.home_component.SmartHome;
 
 import static ru.sbt.mipt.oop.event.EventType.*;
 
-public class EventHandler implements Handler {
+public class SensorEventHandler implements Handler {
     private final SmartHome smartHome;
 
-    public EventHandler(SmartHome smartHome) {
+    public SensorEventHandler(SmartHome smartHome) {
         this.smartHome = smartHome;
     }
 

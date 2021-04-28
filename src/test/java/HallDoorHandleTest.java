@@ -1,6 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
-import ru.sbt.mipt.oop.handler.EventHandler;
+import ru.sbt.mipt.oop.handler.SensorEventHandler;
 import ru.sbt.mipt.oop.event.SensorEvent;
 import ru.sbt.mipt.oop.event.EventType;
 import ru.sbt.mipt.oop.home_component.Door;
@@ -30,7 +30,7 @@ public class HallDoorHandleTest {
     @Test
     public void CloseHallDoorLightsCheck() {
         SensorEvent event = new SensorEvent(EventType.DOOR_CLOSED, "3");
-        new EventHandler(smartHome).handle(event);
+        new SensorEventHandler(smartHome).handle(event);
         boolean expectedState = false;
         boolean actualState1 = testingLight1.isOn();
         boolean actualState2= testingLight2.isOn();

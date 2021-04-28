@@ -1,4 +1,4 @@
-package com.coolcompany.smarthome.events;
+package com.coolcompany.events;
 
 /**
  * Available event types in library v3.7.1:

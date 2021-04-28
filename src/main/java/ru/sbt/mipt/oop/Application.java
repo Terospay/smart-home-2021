@@ -1,23 +1,21 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.event.RandomSensorEventGenerator;
-import ru.sbt.mipt.oop.event.SensorEventGenerator;
-import ru.sbt.mipt.oop.handler.SequentialEventHandler;
-import ru.sbt.mipt.oop.home_component.SmartHome;
-import ru.sbt.mipt.oop.reader.JsonSmartHomeReader;
-
-import java.io.IOException;
+import com.coolcompany.events.SensorEventsManager;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Application {
 
-    public static void main(String... args) throws IOException {
+    public static void main(String[] args) {
         // считываем состояние дома из файла
-        SmartHome smartHome = new JsonSmartHomeReader().read("smart-home-1.js");
+//        SmartHome smartHome = new JsonSmartHomeReader().read("smart-home-1.js");
         // начинаем цикл обработки событий
-        SensorEventGenerator sensorEventGenerator = new RandomSensorEventGenerator();
-        SequentialEventHandler sequentialEventHandler = new SequentialEventHandler(smartHome, sensorEventGenerator);
-        sequentialEventHandler.start();
-
+//        SensorEventGenerator sensorEventGenerator = new RandomSensorEventGenerator();
+//        SequentialEventHandler sequentialEventHandler = new SequentialEventHandler(smartHome, sensorEventGenerator);
+//        sequentialEventHandler.start();
+        ApplicationContext context = new AnnotationConfigApplicationContext(SmartHomeConfiguration.class);
+        SensorEventsManager sensorEventsManager = context.getBean(SensorEventsManager.class);
+        sensorEventsManager.start();
     }
 
 }

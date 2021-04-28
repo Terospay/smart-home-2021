@@ -1,6 +1,6 @@
-package com.coolcompany.smarthome.sample;
+package com.coolcompany.sample;
 
-import com.coolcompany.smarthome.events.SensorEventsManager;
+import com.coolcompany.events.SensorEventsManager;
 
 public class Sample {
 

@@ -3,7 +3,7 @@ import org.junit.Test;
 import ru.sbt.mipt.oop.event.AlarmEvent;
 import ru.sbt.mipt.oop.event.EventType;
 import ru.sbt.mipt.oop.event.SensorEvent;
-import ru.sbt.mipt.oop.handler.EventHandler;
+import ru.sbt.mipt.oop.handler.SensorEventHandler;
 import ru.sbt.mipt.oop.home_component.Door;
 import ru.sbt.mipt.oop.home_component.Light;
 import ru.sbt.mipt.oop.home_component.Room;
@@ -58,11 +58,11 @@ public class AlarmHandlerTest {
 
     public void alarmEventStart(EventType eventType, String code) {
         AlarmEvent event = new AlarmEvent(eventType, code);
-        new EventHandler(smartHome).handle(event);
+        new SensorEventHandler(smartHome).handle(event);
     }
 
     public void sensorEventStart(EventType eventType, String objectId) {
         SensorEvent event = new SensorEvent(eventType, objectId);
-        new EventHandler(smartHome).handle(event);
+        new SensorEventHandler(smartHome).handle(event);
     }
 }
