@@ -17,5 +17,8 @@ public class InactiveAlarmState implements AlarmState{
     public void deactivate(String code) {}
 
     @Override
-    public void alert() {}
+    public void alert() {
+        alarm.setState(new AlertAlarmState(alarm));
+        System.out.println("Sending sms");
+    }
 }

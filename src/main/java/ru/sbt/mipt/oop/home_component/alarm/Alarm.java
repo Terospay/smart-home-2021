@@ -39,6 +39,10 @@ public class Alarm implements HomeComponent, Actionable {
         this.state = state;
     }
 
+    public AlarmState getState() {
+        return state;
+    }
+
     public boolean isCorrect(String code) {
         return code.equals(this.code);
     }

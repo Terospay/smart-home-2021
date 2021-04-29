@@ -8,12 +8,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class SmartHome implements Actionable, HomeComponent {
-    private Collection<Room> rooms;
+    private Collection<Room> rooms = new ArrayList<Room>();
     private Alarm alarm = null;
-
-    public SmartHome() {
-        rooms = new ArrayList<>();
-    }
 
     public SmartHome(Collection<Room> rooms) {
         this.rooms = rooms;
@@ -21,6 +17,10 @@ public class SmartHome implements Actionable, HomeComponent {
 
     public SmartHome(Collection<Room> rooms, Alarm alarm) {
         this(rooms);
+        this.alarm = alarm;
+    }
+
+    public SmartHome(Alarm alarm) {
         this.alarm = alarm;
     }
 
@@ -34,6 +34,10 @@ public class SmartHome implements Actionable, HomeComponent {
 
     public Alarm getAlarm() {
         return alarm;
+    }
+
+    public void setAlarm(Alarm alarm) {
+        this.alarm = alarm;
     }
 
     @Override
