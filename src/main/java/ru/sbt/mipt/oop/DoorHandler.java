@@ -22,9 +22,6 @@ public class DoorHandler implements DeviceHandler {
                             doorOpen(room, door);
                         } else {
                             doorClose(room, door);
-                            if (room.getName().equals("hall")) {
-                                new HallDoorHandler(smartHome).handle(event);
-                            }
                         }
                     }
                 }

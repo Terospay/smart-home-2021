@@ -23,7 +23,8 @@ public class SequentialEventHandler {
 
     public void start() {
         EventHandler eventHandler = new EventHandler(smartHome);
-        eventHandler.registrationDeviceHandlers(new ArrayList<DeviceHandler>(Arrays.asList(new DoorHandler(smartHome), new LightHandler(smartHome))));
+        eventHandler.registrationDeviceHandlers(new ArrayList<DeviceHandler>(Arrays.asList(new DoorHandler(smartHome),
+                new LightHandler(smartHome), new HallDoorHandler(smartHome))));
         SensorEvent event = sensorEventGenerator.getNextSensorEvent();
         while (event != null) {
             eventHandler.handle(event);
