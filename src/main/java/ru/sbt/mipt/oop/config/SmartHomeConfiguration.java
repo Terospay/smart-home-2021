@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.config;
 
 import com.coolcompany.events.SensorEventsManager;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +9,7 @@ import ru.sbt.mipt.oop.handler.*;
 import ru.sbt.mipt.oop.home_component.SmartHome;
 import ru.sbt.mipt.oop.reader.JsonSmartHomeReader;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @Configuration
@@ -20,21 +20,24 @@ public class SmartHomeConfiguration {
     }
 
     @Bean
-    DoorHandler createDoorHandler(SmartHome smartHome) {
-        return new DoorHandler(smartHome);
+    Handler createDoorHandler(SmartHome smartHome) {
+        return new EventHandlerWithAlarmSafety(smartHome, new DoorHandler(smartHome));
     }
 
     @Bean
-    LightHandler createLightHandler(SmartHome smartHome) {
-        return new LightHandler(smartHome);
+    Handler createLightHandler(SmartHome smartHome) {
+        return new EventHandlerWithAlarmSafety(smartHome, new LightHandler(smartHome));
     }
 
     @Bean
-    SensorEventHandler createSensorEventHandler(SmartHome smartHome, LightHandler lightHandler, DoorHandler doorHandler) {
+    Handler createAlarmHandler(SmartHome smartHome) {
+        return new AlarmHandler(smartHome);
+    }
+
+    @Bean
+    SensorEventHandler createSensorEventHandler(SmartHome smartHome, List<Handler> handlers) {
         SensorEventHandler sensorEventHandler = new SensorEventHandler(smartHome);
-        EventHandlerWithAlarmSafety lightHandlerWithAlarmSafety = new EventHandlerWithAlarmSafety(smartHome, lightHandler);
-        EventHandlerWithAlarmSafety doorHandlerWithAlarmSafety = new EventHandlerWithAlarmSafety(smartHome, doorHandler);
-        sensorEventHandler.registrationHandlers(Arrays.asList(lightHandlerWithAlarmSafety, doorHandlerWithAlarmSafety, new AlarmHandler(smartHome)));
+        sensorEventHandler.registrationHandlers(handlers);
         return sensorEventHandler;
     }
 
@@ -50,7 +53,7 @@ public class SmartHomeConfiguration {
 
     @Bean
     EventHandlerAdapter eventHandlerAdapter(SensorEventHandler sensorEventHandler, Map<String, EventType> stringToSensorEvent) {
-        return new EventHandlerAdapter(sensorEventHandler, stringToSensorEvent());
+        return new EventHandlerAdapter(sensorEventHandler, stringToSensorEvent);
     }
 
     @Bean

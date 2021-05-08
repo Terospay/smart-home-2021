@@ -2,11 +2,10 @@ package ru.sbt.mipt.oop.remote_control;
 
 import ru.sbt.mipt.oop.remote_control.command.Command;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class RemoteControlImpl implements RemoteControl{
-    private Map<String, Command> binnedCommand = new HashMap<String, Command>();
+    private Map<String, Command> binnedCommand;
 
     public RemoteControlImpl(Map<String, Command> binnedCommand) {
         this.binnedCommand = binnedCommand;

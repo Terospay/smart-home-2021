@@ -3,6 +3,7 @@ package ru.sbt.mipt.oop;
 import com.coolcompany.events.SensorEventsManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.sbt.mipt.oop.config.SmartHomeConfiguration;
 
 public class Application {
 
